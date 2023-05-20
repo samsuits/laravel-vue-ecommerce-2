@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class AdminUserSeeder extends Seeder
@@ -14,8 +13,8 @@ class AdminUserSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            'name' => 'Lorraine Dayton',
-            'email' => 'lorrainerdayton@armyspy.com',
+            'name' => 'Mike Dayton',
+            'email' => 'mikerdayton@armyspy.com',
             'email_verified_at' => now(),
             'password' => bcrypt('faitaLai1'),
             'is_admin' => true,

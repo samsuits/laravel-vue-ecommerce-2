@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application as ContractsApplication;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -47,7 +48,7 @@ class AuthController extends Controller
         $token = $user->createToken('main')->plainTextToken;
 
         return response([
-            'user' => $user,
+            'user' => new UserResource($user),
             'token' => $token
         ]);
     }
@@ -64,5 +65,17 @@ class AuthController extends Controller
         $user->currentAccessToken()->delete();
 
         return response('', 204);
+    }
+
+    /**
+     * Retrieve current logged in user
+     *
+     * @param Request $request
+     *
+     * @return UserResource
+     */
+    public function getUser(Request $request): UserResource
+    {
+        return new UserResource($request->user());
     }
 }
