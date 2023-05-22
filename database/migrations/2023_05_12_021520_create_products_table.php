@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->foreignIdFor(User::class, 'created_by');
             $table->foreignIdFor(User::class, 'updated_by');
             $table->softDeletes();
-            $table->foreignIdFor(User::class, 'deleted_by');
+            $table->foreignIdFor(User::class, 'deleted_by')->nullable();
             $table->timestamps();
         });
     }
