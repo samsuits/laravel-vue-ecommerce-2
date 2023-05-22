@@ -25,3 +25,23 @@ export function logout({commit}) {
             return response;
         })
 }
+
+export function getProducts({commit, state}, {url = null, search = '', per_page, sort_field, sort_direction} = {}) {
+    commit('setProducts', [true])
+    url = url || '/product'
+    const params = {
+        per_page: state.products.limit,
+    }
+    return axiosClient.get(url, {
+        params: {
+            ...params,
+            search, per_page, sort_field, sort_direction
+        }
+    })
+        .then((response) => {
+            commit('setProducts', [false, response.data])
+        })
+        .catch(() => {
+            commit('setProducts', [false])
+        })
+}

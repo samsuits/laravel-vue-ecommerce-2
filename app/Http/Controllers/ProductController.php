@@ -19,7 +19,17 @@ class ProductController extends Controller
      */
     public function index(): AnonymousResourceCollection
     {
-        return ProductListResource::collection(Product::query()->paginate(10));
+        $perPage = request('per_page', 10);
+        $search = request('search', '');
+        $sortField = request('sort_field', 'created_at');
+        $sortDirection = request('sort_direction', 'desc');
+
+        $query = Product::query()
+            ->where('title', 'like', "%{$search}%")
+            ->orderBy($sortField, $sortDirection)
+            ->paginate($perPage);
+
+        return ProductListResource::collection($query);
     }
 
     /**
@@ -37,13 +47,17 @@ class ProductController extends Controller
     }
 
     /**
+     *
      * Display the specified resource.
+     *
+     * @param Product $product
+     *
+     * @return ProductResource
      */
-    public function show(Product $product)
+    public function show(Product $product): ProductResource
     {
         return new ProductResource($product);
     }
-
 
     /**
      * Update the specified resource in storage.
@@ -59,7 +73,6 @@ class ProductController extends Controller
 
         return new ProductResource($product);
     }
-
 
     /**
      *
