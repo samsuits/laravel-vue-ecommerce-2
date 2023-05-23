@@ -60,7 +60,7 @@
             <tr v-for="(product, index) of products.data">
                 <td class="border-b p-2 ">{{ product.id }}</td>
                 <td class="border-b p-2 ">
-                    <img class="w-16 h-16 object-cover" :src="product.image" :alt="product.title">
+                    <img class="w-16 h-16 object-cover" :src="product.image_url" :alt="product.title">
                 </td>
                 <td class="border-b p-2 max-w-[200px] whitespace-nowrap overflow-hidden text-ellipsis">
                     {{ product.title }}
@@ -177,7 +177,6 @@ import Spinner from "../../components/core/Spinner.vue";
 import {PRODUCTS_PER_PAGE} from "../../constants";
 import TableHeaderCell from "../../components/core/Table/TableHeaderCell.vue";
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/vue";
-import ProductModal from "./ProductModal.vue";
 import {EllipsisVerticalIcon, PencilIcon, TrashIcon} from "@heroicons/vue/24/outline/index.js";
 
 const perPage = ref(PRODUCTS_PER_PAGE);
@@ -244,8 +243,8 @@ function deleteProduct(product) {
         })
 }
 
-function editProduct(p) {
-    emit('clickEdit', p)
+function editProduct(product) {
+    emit('clickEdit', product)
 }
 </script>
 
